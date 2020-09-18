@@ -11,7 +11,7 @@ app.use(KSR({
         "./test/client/",
         //for livereload
         "./node_modules/socket.io-client/dist/",
-        //"./node_modules/socket.io-livereload/dist/",
+        //"./node_modules/socket-livereload/dist/",
         "./dist/"
     ],
     //max-age=<seconds>

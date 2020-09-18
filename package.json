@@ -1,5 +1,5 @@
 {
-    "name": "socket.io-livereload",
+    "name": "socket-livereload",
     "version": "1.0.0",
     "description": "",
     "main": "dist/livereload.js",
@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/cenfun/socket.io-livereload.git"
+        "url": "git+https://github.com/cenfun/socket-livereload.git"
     },
     "files": [
         "dist"

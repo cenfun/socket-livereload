@@ -1,15 +1,3 @@
-# socket.io-livereload
-> livereload for socket.io + koa
-
-
-## Install
-```sh
-npm install socket.io-livereload
-```
-
-## Usage
-
-```js
 const http = require("http");
 const Koa = require("koa");
 const KSR = require("koa-static-resolver");
@@ -76,11 +64,3 @@ const refreshHandler = function() {
 };
 
 refreshHandler();
-
-```
-
-## Test
-
-```sh
-npm run test
-```

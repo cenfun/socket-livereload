@@ -1,0 +1,20 @@
+{
+    "name": "socket.io-livereload",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/livereload.js",
+    "scripts": {
+        "build": "npx webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cenfun/socket.io-livereload.git"
+    },
+    "files": [
+        "dist"
+    ],
+    "devDependencies": {
+        "webpack": "^4.44.2",
+        "webpack-cli": "^3.3.12"
+    }
+}

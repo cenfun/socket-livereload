@@ -99,7 +99,15 @@
         });
     };
 
-    var clientJs = "socket.io.js";
+    var clientJs = "socket.io.min.js";
+    var elem = document.querySelector(".livereload");
+    if (elem) {
+        var client = elem.getAttribute("client");
+        if (client) {
+            clientJs = client;
+        }
+    }
+
     var script = document.createElement("script");
     script.src = clientJs;
     script.onload = function() {

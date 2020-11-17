@@ -16,7 +16,7 @@ app.use(KSR({
     ],
     //max-age=<seconds>
     maxAge: 1,
-    livereload: '\n<script src="/livereload.js"></script>\n'
+    livereload: '\n<script src="/livereload.js" class="livereload" client="socket.io.min.js"></script>\n'
 }));
 
 const server = http.createServer(app.callback());

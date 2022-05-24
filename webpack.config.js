@@ -1,6 +1,6 @@
 module.exports = {
-    mode: "production",
+    mode: 'production',
     output: {
-        filename: "livereload.js"
+        filename: 'livereload.js'
     }
 };

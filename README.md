@@ -84,3 +84,8 @@ refreshHandler();
 ```sh
 npm run test
 ```
+
+## Changelog
+
+- 2.0.0
+    - IE no longer supported

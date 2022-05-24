@@ -1,67 +1,66 @@
 (function(window) {
 
-    var showLog = function(msg) {
-        console.log("[livereload] " + msg);
+    const showLog = function(msg) {
+        console.log(`[livereload] ${msg}`);
     };
 
-    var showMessage = function(msg) {
-        var className = "livereload-helper";
-        var elem = document.querySelector("." + className);
+    const showMessage = function(msg) {
+        const className = 'livereload-helper';
+        let elem = document.querySelector(`.${className}`);
         if (!elem) {
-            elem = document.createElement("div");
+            elem = document.createElement('div');
             elem.className = className;
-            var cssText = "pointer-events: none; position: absolute; z-index: 99998; top: 0px; left: 0px; padding: 8px 8px;";
-            cssText += "font-family: Helvetica, Arial; font-size: 14px; color: #fff; background-color: rgba(0,0,0,0.8);";
+            const cssText = 'pointer-events: none; position: fixed; z-index: 99998; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 8px 8px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #fff; border-radius: 5px; background-color: rgba(0,0,0,0.6);';
             elem.style.cssText = cssText;
             document.body.appendChild(elem);
         }
         if (!msg) {
-            elem.style.display = "none";
+            elem.style.display = 'none';
             return;
         }
         showLog(msg);
         elem.innerHTML = msg;
-        elem.style.display = "block";
+        elem.style.display = 'block';
     };
 
     if (window.location !== top.location) {
-        showLog("disabled in frame");
+        showLog('disabled in frame');
         return;
     }
 
-    showLog("loaded");
+    showLog('loaded');
 
-    var initSocket = function() {
+    const initSocket = function() {
 
         if (!window.io) {
-            showLog("not found io");
+            showLog('not found io');
             return;
         }
 
-        var socket = window.io.connect("/");
+        const socket = window.io.connect('/');
 
-        var server_connected = false;
-        var has_error = false;
-        var reconnect_times = 0;
+        let server_connected = false;
+        let has_error = false;
+        let reconnect_times = 0;
 
-        var reload = function() {
+        const reload = function() {
             socket.close();
             window.location.reload();
         };
 
-        socket.on("data", function(data) {
+        socket.on('data', function(data) {
             if (server_connected) {
                 showMessage(data.message);
-                if (data.action === "reload") {
+                if (data.action === 'reload') {
                     reload();
                 }
             }
         });
-        socket.on("connect", function(data) {
-            showLog("socket connected");
+        socket.on('connect', function(data) {
+            showLog('socket connected');
             if (server_connected) {
                 if (has_error) {
-                    showMessage("Reloading for socket reconnected ...");
+                    showMessage('Reloading for socket reconnected ...');
                     reload();
                 }
             }
@@ -70,51 +69,51 @@
             reconnect_times = 0;
         });
 
-        socket.on("connect_error", function(data) {
-            showLog("socket connection error");
+        socket.on('connect_error', function(data) {
+            showLog('socket connection error');
             has_error = true;
         });
 
-        socket.on("connect_timeout", function(data) {
-            showLog("socket connection timeout");
+        socket.on('connect_timeout', function(data) {
+            showLog('socket connection timeout');
         });
 
-        socket.on("reconnecting", function(data) {
+        socket.on('reconnecting', function(data) {
             reconnect_times += 1;
-            showLog("socket reconnecting ... " + reconnect_times);
+            showLog(`socket reconnecting ... ${reconnect_times}`);
             if (reconnect_times > 20) {
                 socket.close();
-                showLog("socket closed after retry " + reconnect_times + " times");
+                showLog(`socket closed after retry ${reconnect_times} times`);
             }
         });
 
-        socket.on("reconnect_error", function(data) {
-            showLog("socket reconnection error");
+        socket.on('reconnect_error', function(data) {
+            showLog('socket reconnection error');
             has_error = true;
         });
 
-        socket.on("reconnect_failed", function(data) {
-            showLog("socket reconnection failed");
+        socket.on('reconnect_failed', function(data) {
+            showLog('socket reconnection failed');
             has_error = true;
         });
     };
 
-    var clientJs = "socket.io.min.js";
-    var elem = document.querySelector(".livereload");
+    let clientJs = 'socket.io.min.js';
+    const elem = document.querySelector('.livereload');
     if (elem) {
-        var client = elem.getAttribute("client");
+        const client = elem.getAttribute('client');
         if (client) {
             clientJs = client;
         }
     }
 
-    var script = document.createElement("script");
+    const script = document.createElement('script');
     script.src = clientJs;
     script.onload = function() {
         initSocket();
     };
     script.onerror = function() {
-        showLog("failed to load " + clientJs);
+        showLog(`failed to load ${clientJs}`);
     };
     document.body.appendChild(script);
 
